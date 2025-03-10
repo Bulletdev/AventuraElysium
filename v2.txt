@@ -1,0 +1,129 @@
+import java.util.*;
+
+class Personagem {
+    String nome;
+    String arma;
+    int hp;
+    int ataque;
+
+    public Personagem(String nome, String arma, int hp, int ataque) {
+        this.nome = nome;
+        this.arma = arma;
+        this.hp = hp;
+        this.ataque = ataque;
+    }
+}
+
+class Monstro {
+    String tipo;
+    int hp;
+    int ataque;
+
+    public Monstro(String tipo, int hp, int ataque) {
+        this.tipo = tipo;
+        this.hp = hp;
+        this.ataque = ataque;
+    }
+}
+
+public class AventuraReinoElysium {
+    static Scanner scanner = new Scanner(System.in);
+    static Random random = new Random();
+    static List<String> armas = Arrays.asList("espada", "arco", "mace");
+    static List<String> acoes = Arrays.asList("atacar", "defender", "fugir", "curar");
+
+    public static void main(String[] args) {
+        System.out.println("Bem-vindo ao Reino de Elysium! Digite seu nome:");
+        String nomeJogador = scanner.nextLine();
+
+        System.out.println("Escolha uma arma: " + armas);
+        String armaEscolhida = scanner.nextLine().toLowerCase();
+        while (!armas.contains(armaEscolhida)) {
+            System.out.println("Opção inválida! Escolha uma arma válida: " + armas);
+            armaEscolhida = scanner.nextLine().toLowerCase();
+        }
+
+        Personagem jogador = new Personagem(nomeJogador, armaEscolhida, 100, calcularDano(armaEscolhida));
+        System.out.println("Você está pronto para a aventura!");
+        explorar(jogador);
+    }
+
+    private static void explorar(Personagem jogador) {
+        while (jogador.hp > 0) {
+            System.out.println("Você está explorando a floresta...");
+            if (random.nextInt(100) < 50) {
+                Monstro monstro = gerarMonstro();
+                System.out.println("Você encontrou um " + monstro.tipo + "! Ele tem " + monstro.hp + " HP!");
+                batalha(jogador, monstro);
+            } else {
+                System.out.println("Nada aconteceu. Você continua sua jornada.");
+            }
+            System.out.println("Seu HP: " + jogador.hp);
+            System.out.println("Deseja continuar explorando? (sim/não)");
+            String resposta = scanner.nextLine().toLowerCase();
+            if (!resposta.equals("sim")) {
+                System.out.println("Você decidiu descansar. Fim da aventura!");
+                break;
+            }
+        }
+    }
+
+    private static void batalha(Personagem jogador, Monstro monstro) {
+        while (jogador.hp > 0 && monstro.hp > 0) {
+            System.out.println("Escolha uma ação: " + acoes);
+            String acaoEscolhida = scanner.nextLine().toLowerCase();
+            while (!acoes.contains(acaoEscolhida)) {
+                System.out.println("Opção inválida! Escolha uma ação válida: " + acoes);
+                acaoEscolhida = scanner.nextLine().toLowerCase();
+            }
+
+            switch (acaoEscolhida) {
+                case "fugir":
+                    System.out.println("Você fugiu! O monstro continua à solta...");
+                    return;
+                case "defender":
+                    System.out.println("Você se defendeu! Reduziu o dano do monstro pela metade.");
+                    jogador.hp -= monstro.ataque / 2;
+                    break;
+                case "curar":
+                    int cura = random.nextInt(21) + 10;
+                    jogador.hp += cura;
+                    System.out.println("Você se curou em " + cura + " pontos de vida!");
+                    break;
+                default:
+                    System.out.println("Você atacou com " + jogador.arma + " e causou " + jogador.ataque + " de dano!");
+                    monstro.hp -= jogador.ataque;
+                    if (monstro.hp <= 0) {
+                        System.out.println("Você derrotou o monstro!");
+                        return;
+                    }
+                    System.out.println("O monstro contra-atacou e causou " + monstro.ataque + " de dano!");
+                    jogador.hp -= monstro.ataque;
+            }
+            System.out.println("Seu HP: " + jogador.hp + " | HP do monstro: " + monstro.hp);
+        }
+
+        if (jogador.hp <= 0) {
+            System.out.println("Você foi derrotado! Fim da jornada...");
+        } else {
+            System.out.println("Parabéns, você venceu a batalha!");
+        }
+    }
+
+    private static int calcularDano(String arma) {
+        switch (arma) {
+            case "espada": return random.nextInt(21) + 30; // Dano entre 30 e 50
+            case "arco": return random.nextInt(16) + 20; // Dano entre 20 e 35
+            case "mace": return random.nextInt(26) + 40; // Dano entre 40 e 65
+            default: return 0;
+        }
+    }
+
+    private static Monstro gerarMonstro() {
+        List<String> tipos = Arrays.asList("Goblin", "Lobo", "Orc", "Dragão");
+        String tipo = tipos.get(random.nextInt(tipos.size()));
+        int hp = random.nextInt(51) + 50; // HP entre 50 e 100
+        int ataque = random.nextInt(16) + 10; // Ataque entre 10 e 25
+        return new Monstro(tipo, hp, ataque);
+    }
+}
