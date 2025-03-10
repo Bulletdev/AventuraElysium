@@ -26,11 +26,11 @@
 1. **Clone este repositório** ou baixe o código-fonte.
 2. **Compile o projeto** na pasta `src`:
    ```sh
-   javac AventuraReinoElysium.java
+javac --module-path "C:\javafx-sdk-17.0.14\lib" --add-modules javafx.controls AventuraReinoElysium.java
    ```
 3. **Execute o jogo**:
    ```sh
-   java AventuraReinoElysium
+java --module-path "C:\javafx-sdk-17.0.14\lib" --add-modules javafx.controls AventuraReinoElysium
    ```
 
 ## 🌟 Melhorias Futuras
