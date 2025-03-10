@@ -111,15 +111,17 @@ public class AventuraReinoElysium extends JFrame {
                 display.append("Você se curou em " + cura + " pontos de vida!\n");
                 break;
             default:
-                display.append("Você atacou com " + jogador.arma + " e causou " + jogador.ataque + " de dano!\n");
-                monstro.hp -= jogador.ataque;
+                int danoJogador = calcularDano(jogador.arma); // Recalcula o dano do jogador
+                int danoMonstro = calcularDanoMonstro(monstro.tipo); // Recalcula o dano do monstro
+                display.append("Você atacou com " + jogador.arma + " e causou " + danoJogador + " de dano!\n");
+                monstro.hp -= danoJogador;
                 if (monstro.hp <= 0) {
                     display.append("Você derrotou o monstro!\n");
                     atualizarBotoes(false);
                     return;
                 }
-                display.append("O monstro contra-atacou e causou " + monstro.ataque + " de dano!\n");
-                jogador.hp -= monstro.ataque;
+                display.append("O monstro contra-atacou e causou " + danoMonstro + " de dano!\n");
+                jogador.hp -= danoMonstro;
         }
         display.append("Seu HP: " + jogador.hp + " | HP do monstro: " + monstro.hp + "\n");
 
@@ -129,11 +131,22 @@ public class AventuraReinoElysium extends JFrame {
         }
     }
 
-    private int calcularDano(String arma) {
+    private static int calcularDano(String arma) {
         return switch (arma) {
-            case "espada" -> random.nextInt(21) + 30;
-            case "arco" -> random.nextInt(16) + 20;
-            case "mace" -> random.nextInt(26) + 40;
+            case "espada" -> random.nextInt(30) + 1;
+            case "arco" -> random.nextInt(20) + 1;
+            case "mace" -> random.nextInt(40) + 1;
+            default -> 0;
+        };
+    }
+
+    private static int calcularDanoMonstro(String tipo) {
+        // Recalcula o dano do monstro com base no tipo
+        return switch (tipo) {
+            case "Goblin" -> random.nextInt(10) + 5;
+            case "Lobo" -> random.nextInt(15) + 10;
+            case "Orc" -> random.nextInt(20) + 15;
+            case "Dragão" -> random.nextInt(25) + 20;
             default -> 0;
         };
     }
@@ -142,7 +155,7 @@ public class AventuraReinoElysium extends JFrame {
         List<String> tipos = Arrays.asList("Goblin", "Lobo", "Orc", "Dragão");
         String tipo = tipos.get(random.nextInt(tipos.size()));
         int hp = random.nextInt(51) + 50;
-        int ataque = random.nextInt(16) + 10;
+        int ataque = calcularDanoMonstro(tipo);
         return new Monstro(tipo, hp, ataque);
     }
 
