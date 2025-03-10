@@ -37,9 +37,9 @@ public class AventuraReinoElysium extends JFrame {
 
     private Personagem jogador;
     private Monstro monstro;
-    private JTextArea display;
-    private JButton[] botoesAcoes;
-    private JButton botaoContinuar;
+    private final JTextArea display;
+    private final JButton[] botoesAcoes;
+    private final JButton botaoContinuar;
 
     public AventuraReinoElysium() {
         setTitle("Aventura no Reino de Elysium");
@@ -130,12 +130,12 @@ public class AventuraReinoElysium extends JFrame {
     }
 
     private int calcularDano(String arma) {
-        switch (arma) {
-            case "espada": return random.nextInt(21) + 30;
-            case "arco": return random.nextInt(16) + 20;
-            case "mace": return random.nextInt(26) + 40;
-            default: return 0;
-        }
+        return switch (arma) {
+            case "espada" -> random.nextInt(21) + 30;
+            case "arco" -> random.nextInt(16) + 20;
+            case "mace" -> random.nextInt(26) + 40;
+            default -> 0;
+        };
     }
 
     private Monstro gerarMonstro() {
