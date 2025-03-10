@@ -210,7 +210,7 @@ public class AventuraReinoElysium extends Application {
     private void mostrarTelaDerrota() {
         VBox derrotaRoot = new VBox();
         Label derrotaLabel = new Label("Você foi derrotado!");
-        ImageView espadaQuebradaView = new ImageView(new Image("file:end.png")); // Substitua pelo caminho da sua imagem
+        ImageView espadaQuebradaView = new ImageView(new Image("file:src/end.png")); // Substitua pelo caminho da sua imagem
         derrotaRoot.getChildren().addAll(derrotaLabel, espadaQuebradaView);
 
         Scene derrotaScene = new Scene(derrotaRoot, 600, 400);
