@@ -1,4 +1,3 @@
-Entendi, vamos dar um toque especial ao README para que ele fique visualmente atraente e com um aspecto de RPG épico, como Final Fantasy. Aqui está a versão personalizada:
 
 # 🌟 Aventura no Reino de Elysium 
 
