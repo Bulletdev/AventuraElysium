@@ -23,7 +23,7 @@ Aventura no Reino de Elysium é um RPG baseado em texto com interface gráfica f
 
 ## Como Executar
 1. Clone este repositório ou baixe o código-fonte.
-2. Compile o projeto:
+2. Compile o projeto na pasta src:
    ```sh
    javac AventuraReinoElysium.java
    ```
