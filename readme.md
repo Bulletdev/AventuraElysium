@@ -40,4 +40,3 @@
 - 🎵 Sons e **músicas de fundo**.
 - 🖥️ Versão com **JavaFX** para uma interface mais moderna.
 
-Espero que tenha gostado da nova versão! Se precisar de mais alguma coisa ou quiser mais ajustes, estou aqui para ajudar. 😊🎮
