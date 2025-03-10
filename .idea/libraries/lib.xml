@@ -2,11 +2,13 @@
   <library name="lib">
     <CLASSES>
       <root url="file://$PROJECT_DIR$/../../../../javafx-sdk-17.0.14/lib" />
+      <root url="file://$PROJECT_DIR$/../../../../../javafx-sdk-17.0.14/lib" />
     </CLASSES>
     <JAVADOC />
     <SOURCES>
       <root url="file://$PROJECT_DIR$/../../../../javafx-sdk-17.0.14" />
     </SOURCES>
+    <jarDirectory url="file://$PROJECT_DIR$/../../../../../javafx-sdk-17.0.14/lib" recursive="false" />
     <jarDirectory url="file://$PROJECT_DIR$/../../../../javafx-sdk-17.0.14/lib" recursive="false" />
     <jarDirectory url="file://$PROJECT_DIR$/../../../../javafx-sdk-17.0.14" recursive="false" type="SOURCES" />
   </library>
