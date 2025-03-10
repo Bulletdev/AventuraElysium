@@ -1,15 +1,14 @@
-
-# 🌟 Aventura no Reino de Elysium 
+# 🌟 Aventura no Reino de Elysium
 
 ## 📜 Descrição
-**Aventura no Reino de Elysium** é um RPG baseado em texto com interface gráfica feita em Java Swing. O jogador assume o papel de um aventureiro explorando uma floresta misteriosa, enfrentando monstros e tomando decisões estratégicas para sobreviver.
+**Aventura no Reino de Elysium** é um RPG baseado em texto com interface gráfica feita em JavaFX. O jogador assume o papel de um aventureiro explorando uma floresta misteriosa, enfrentando monstros e tomando decisões estratégicas para sobreviver.
 
 ## ⚔️ Funcionalidades
 - 🛡️ **Criação de personagem** com escolha de nome e arma.
 - 🌲 **Exploração de um mundo** com eventos aleatórios.
 - 🐉 **Batalhas contra monstros** como Goblins, Lobos, Orcs e Dragões.
 - 🎯 **Opções de ação durante o combate:** Atacar, Defender, Fugir ou Curar.
-- 🖥️ **Interface gráfica interativa** com Java Swing.
+- 🖥️ **Interface gráfica interativa** com JavaFX.
 
 ## 🎮 Como Jogar
 1. **Execute o jogo** (é necessário ter o Java instalado).
@@ -20,18 +19,21 @@
 
 ## ⚙️ Requisitos
 - ☕ **Java 17** ou superior.
-- 💻 **Ambiente de desenvolvimento compatível** (Eclipse, IntelliJ, VS Code, etc.).
+- 💻 **JavaFX SDK 17** ou superior.
 
 ## 🚀 Como Executar
-1. **Clone este repositório** ou baixe o código-fonte.
-2. **Compile o projeto** na pasta `src`:
-   ```sh
-javac --module-path "C:\javafx-sdk-17.0.14\lib" --add-modules javafx.controls AventuraReinoElysium.java
-   ```
-3. **Execute o jogo**:
-   ```sh
-java --module-path "C:\javafx-sdk-17.0.14\lib" --add-modules javafx.controls AventuraReinoElysium
-   ```
+1. **Clone este repositório** ou baixe o arquivo `AventuraReinoElysium.jar` na pasta `src`.
+2. **Navegue até a pasta `src`**:
+
+```sh
+cd src
+```
+
+Execute o jogo:
+
+```sh
+java --module-path "C:\javafx-sdk-17.0.14\lib" --add-modules javafx.controls -jar AventuraReinoElysium.jar
+```
 
 ## 🌟 Melhorias Futuras
 - 💼 Implementação de **sistema de inventário**.
