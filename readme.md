@@ -35,7 +35,6 @@ Execute o jogo:
 java --module-path "C:\javafx-sdk-17.0.14\lib" --add-modules javafx.controls -jar AventuraReinoElysium.jar
 ```
 
-Ou execute diretamente o arquivo.jar na pasta
 
 ## 🌟 Melhorias Futuras
 - 💼 Implementação de **sistema de inventário**.
