@@ -9,12 +9,16 @@ class Personagem {
     String arma;
     int hp;
     int ataque;
+    int turnosParaCurar;
+    int turnosParaDefender;
 
     public Personagem(String nome, String arma, int hp, int ataque) {
         this.nome = nome;
         this.arma = arma;
         this.hp = hp;
         this.ataque = ataque;
+        this.turnosParaCurar = 0;
+        this.turnosParaDefender = 0;
     }
 }
 
@@ -93,22 +97,42 @@ public class AventuraReinoElysium extends JFrame {
             display.append("Nada aconteceu. Você continua sua jornada.\n");
             atualizarBotoes(false);
         }
+        jogador.turnosParaCurar = Math.max(0, jogador.turnosParaCurar - 1);
+        jogador.turnosParaDefender = Math.max(0, jogador.turnosParaDefender - 1);
     }
 
     private void batalha(String acao) {
         switch (acao) {
             case "Fugir":
-                display.append("Você fugiu! O monstro continua à solta...\n");
-                atualizarBotoes(false);
+                if (random.nextInt(100) < 70) {
+                    display.append("Você fugiu! O monstro continua à solta...\n");
+                    atualizarBotoes(false);
+                } else {
+                    display.append("A fuga falhou! O monstro ainda está aqui...\n");
+                    int danoMonstro = calcularDanoMonstro(monstro.tipo); // Recalcula o dano do monstro
+                    display.append("O monstro atacou e causou " + danoMonstro + " de dano!\n");
+                    jogador.hp -= danoMonstro;
+                }
                 return;
             case "Defender":
-                display.append("Você se defendeu! Reduziu o dano do monstro pela metade.\n");
-                jogador.hp -= monstro.ataque / 2;
+                if (jogador.turnosParaDefender > 0) {
+                    display.append("Você ainda está em cooldown para Defender! " + jogador.turnosParaDefender + " turnos restantes.\n");
+                } else {
+                    display.append("Você se defendeu! Reduziu o dano do monstro pela metade.\n");
+                    int danoMonstro = calcularDanoMonstro(monstro.tipo) / 2; // Reduz dano do monstro pela metade
+                    jogador.hp -= danoMonstro;
+                    jogador.turnosParaDefender = 1; // cooldown de 1 turno para Defender
+                }
                 break;
             case "Curar":
-                int cura = random.nextInt(21) + 10;
-                jogador.hp += cura;
-                display.append("Você se curou em " + cura + " pontos de vida!\n");
+                if (jogador.turnosParaCurar > 0) {
+                    display.append("Você ainda está em cooldown para Curar! " + jogador.turnosParaCurar + " turnos restantes.\n");
+                } else {
+                    int cura = random.nextInt(21) + 10;
+                    jogador.hp += cura;
+                    display.append("Você se curou em " + cura + " pontos de vida!\n");
+                    jogador.turnosParaCurar = 2; // cooldown de 2 turnos para Curar
+                }
                 break;
             default:
                 int danoJogador = calcularDano(jogador.arma); // Recalcula o dano do jogador
@@ -131,6 +155,12 @@ public class AventuraReinoElysium extends JFrame {
         }
     }
 
+    private void atacarMonstro() {
+        int danoMonstro = calcularDanoMonstro(monstro.tipo); // Recalcula o dano do monstro
+        display.append("O monstro atacou e causou " + danoMonstro + " de dano!\n");
+        jogador.hp -= danoMonstro;
+    }
+
     private static int calcularDano(String arma) {
         return switch (arma) {
             case "espada" -> random.nextInt(30) + 1;
@@ -141,18 +171,19 @@ public class AventuraReinoElysium extends JFrame {
     }
 
     private static int calcularDanoMonstro(String tipo) {
-        // Recalcula o dano do monstro com base no tipo
         return switch (tipo) {
-            case "Goblin" -> random.nextInt(10) + 5;
-            case "Lobo" -> random.nextInt(15) + 10;
-            case "Orc" -> random.nextInt(20) + 15;
-            case "Dragão" -> random.nextInt(25) + 20;
+            case "Goblin" -> random.nextInt(5) + 5;
+            case "Lobo" -> random.nextInt(10) + 10;
+            case "Orc" -> random.nextInt(15) + 15;
+            case "Dragão" -> random.nextInt(20) + 20;
+            case "Hydra" -> random.nextInt(25) + 25;
+
             default -> 0;
         };
     }
 
     private Monstro gerarMonstro() {
-        List<String> tipos = Arrays.asList("Goblin", "Lobo", "Orc", "Dragão");
+        List<String> tipos = Arrays.asList("Goblin", "Lobo", "Orc", "Dragão", "Hydra");
         String tipo = tipos.get(random.nextInt(tipos.size()));
         int hp = random.nextInt(51) + 50;
         int ataque = calcularDanoMonstro(tipo);
