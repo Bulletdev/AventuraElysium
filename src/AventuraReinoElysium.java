@@ -2,6 +2,8 @@ import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
@@ -99,6 +101,7 @@ public class AventuraReinoElysium extends Application {
 
             if (jogador.hp <= 0) {
                 logLabel.setText(logLabel.getText() + "\nVocê foi derrotado! Fim da jornada...");
+                mostrarTelaDerrota();
                 monstro = null;
                 alternarBotoes(false);
             }
@@ -204,6 +207,19 @@ public class AventuraReinoElysium extends Application {
         curarBtn.setVisible(emBatalha);
     }
 
+    private void mostrarTelaDerrota() {
+        VBox derrotaRoot = new VBox();
+        Label derrotaLabel = new Label("Você foi derrotado!");
+        ImageView espadaQuebradaView = new ImageView(new Image("file:src/end.png")); // Substitua pelo caminho da sua imagem
+        derrotaRoot.getChildren().addAll(derrotaLabel, espadaQuebradaView);
+
+        Scene derrotaScene = new Scene(derrotaRoot, 600, 400);
+        Stage derrotaStage = new Stage();
+        derrotaStage.setScene(derrotaScene);
+        derrotaStage.setTitle("Derrota");
+        derrotaStage.show();
+    }
+
     public static void main(String[] args) {
         launch(args);
     }
@@ -225,6 +241,7 @@ class Personagem {
         this.ataque = ataque;
         this.experiencia = 0;
         this.turnosParaCurar = 0;
+
         this.turnosParaDefender = 0;
     }
 
